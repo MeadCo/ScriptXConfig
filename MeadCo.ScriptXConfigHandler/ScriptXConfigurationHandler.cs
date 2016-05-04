@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace MeadCo.ScriptX
 {
     /// <summary>
-    /// Describes the elements available in the configuraton section
+    ///     Describes the elements available in the configuraton section
     /// </summary>
     public class ScriptXConfigurationHandler : ConfigurationSection
     {
@@ -16,7 +11,7 @@ namespace MeadCo.ScriptX
         [ConfigurationProperty("clientinstaller")]
         public InstallerConfiguration ClientInstaller
         {
-            get { return (InstallerConfiguration)this["clientinstaller"]; }
+            get { return (InstallerConfiguration) this["clientinstaller"]; }
             set { this["clientinstaller"] = value; }
         }
 
@@ -24,9 +19,8 @@ namespace MeadCo.ScriptX
         [ConfigurationProperty("license")]
         public LicenseConfiguration License
         {
-            get { return (LicenseConfiguration)this["license"]; }
+            get { return (LicenseConfiguration) this["license"]; }
             set { this["license"] = value; }
         }
-
     }
 }

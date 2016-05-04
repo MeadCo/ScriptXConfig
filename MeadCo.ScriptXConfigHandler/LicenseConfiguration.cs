@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeadCo.ScriptX
 {
     /// <summary>
-    /// A license configuration section indicates that MeadCo Security Manager 
-    /// is required to license the content and provide acess to advanced features.
+    ///     A license configuration section indicates that MeadCo Security Manager
+    ///     is required to license the content and provide acess to advanced features.
     /// </summary>
     public class LicenseConfiguration : ConfigurationElement
     {
         /// <summary>
-        /// The unqiue license ID (GUID)
+        ///     The unqiue license ID (GUID)
         /// </summary>
         [ConfigurationProperty("guid", IsRequired = true)]
         public Guid Guid
@@ -24,7 +20,7 @@ namespace MeadCo.ScriptX
                 Guid guid;
                 try
                 {
-                    guid = (Guid)this["guid"];
+                    guid = (Guid) this["guid"];
                 }
                 catch (Exception)
                 {
@@ -37,28 +33,28 @@ namespace MeadCo.ScriptX
         }
 
         /// <summary>
-        /// The Revision of the license
+        ///     The Revision of the license
         /// </summary>
         [ConfigurationProperty("revision", DefaultValue = "0", IsRequired = true)]
         [IntegerValidator(ExcludeRange = false, MaxValue = 100, MinValue = 0)]
         public int Revision
         {
-            get { return (int)this["revision"]; }
+            get { return (int) this["revision"]; }
             set { this["revision"] = value; }
         }
 
         /// <summary>
-        /// the location of the license file
+        ///     the location of the license file
         /// </summary>
         [ConfigurationProperty("filename", DefaultValue = "~/content/sxlic.mlf", IsRequired = false)]
         [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
-        public String FileName
+        public string FileName
         {
             get
             {
                 try
                 {
-                    return (String)this["filename"];
+                    return (string) this["filename"];
                 }
                 catch (Exception)
                 {
@@ -69,17 +65,17 @@ namespace MeadCo.ScriptX
         }
 
         /// <summary>
-        /// Determines if the accepted license is to be cached per user or per machine
+        ///     Determines if the accepted license is to be cached per user or per machine
         /// </summary>
         [ConfigurationProperty("peruser", DefaultValue = true, IsRequired = false)]
         public bool PerUser
         {
-            get { return (bool)this["peruser"]; }
+            get { return (bool) this["peruser"]; }
             set { this["peruser"] = value; }
         }
 
         /// <summary>
-        /// Returns true if licensing is required -- in other words that a GUID is specified.
+        ///     Returns true if licensing is required -- in other words that a GUID is specified.
         /// </summary>
         public bool IsLicensed => !Guid.Empty.Equals(Guid);
     }
