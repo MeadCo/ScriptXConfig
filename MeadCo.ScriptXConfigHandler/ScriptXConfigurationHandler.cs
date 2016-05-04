@@ -10,7 +10,7 @@ namespace MeadCo.ScriptX
     /// <summary>
     /// Describes the elements available in the configuraton section
     /// </summary>
-    class ScriptXConfigHandler : ConfigurationSection
+    public class ScriptXConfigurationHandler : ConfigurationSection
     {
         // 'clientinstaller' element
         [ConfigurationProperty("clientinstaller")]

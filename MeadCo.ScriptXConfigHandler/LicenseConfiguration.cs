@@ -11,7 +11,7 @@ namespace MeadCo.ScriptX
     /// A license configuration section indicates that MeadCo Security Manager 
     /// is required to license the content and provide acess to advanced features.
     /// </summary>
-    class LicenseConfiguration : ConfigurationElement
+    public class LicenseConfiguration : ConfigurationElement
     {
         /// <summary>
         /// The unqiue license ID (GUID)
@@ -50,7 +50,7 @@ namespace MeadCo.ScriptX
         /// <summary>
         /// the location of the license file
         /// </summary>
-        [ConfigurationProperty("filename", DefaultValue = "~/content/sxlic.mlf", IsRequired = true)]
+        [ConfigurationProperty("filename", DefaultValue = "~/content/sxlic.mlf", IsRequired = false)]
         [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
         public String FileName
         {

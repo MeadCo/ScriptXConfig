@@ -11,7 +11,7 @@ namespace MeadCo.ScriptX
     /// Describes the location of the downloadable code, its version and the
     /// helper action to be used to assist with installinhg the code.
     /// </summary>
-    class InstallerConfiguration : ConfigurationElement
+    public class InstallerConfiguration : ConfigurationElement
     {
         /// <summary>
         /// Provides the name and location of the installer cab file.

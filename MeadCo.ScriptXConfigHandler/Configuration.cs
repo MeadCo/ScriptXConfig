@@ -10,26 +10,29 @@ namespace MeadCo.ScriptX
     // Use: 
     //  MeadCo.ScriptX.Configuration.License
     //  MeadCo.ScriptX.Configuration.ClientInstaller
-    class Configuration
+    public class Configuration
     {
         //  helpers ... return default if no section is defined.
         public static LicenseConfiguration License => ConfigSection.License;
 
         public static InstallerConfiguration ClientInstaller => ConfigSection.ClientInstaller;
 
-        private static ScriptXConfigHandler ConfigSection
+        private static ScriptXConfigurationHandler ConfigSection
         {
             get
             {
-                ScriptXConfigHandler sxc;
+                ScriptXConfigurationHandler sxc=null;
 
                 try
                 {
-                    sxc = (ScriptXConfigHandler)ConfigurationManager.GetSection("meadco/scriptx");
+                    sxc = (ScriptXConfigurationHandler) ConfigurationManager.GetSection("meadco/scriptx");
                 }
-                catch (Exception)
+                finally
                 {
-                    sxc = new ScriptXConfigHandler();
+                    if (sxc == null)
+                    {
+                        sxc = new ScriptXConfigurationHandler();
+                    }
                 }
                 return sxc;
             }

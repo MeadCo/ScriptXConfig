@@ -31,3 +31,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: InternalsVisibleTo("MeadCo.ScriptXConfigHandler.Tests")]
+[assembly: InternalsVisibleTo("MeadCo.ScriptXConfigurationHandler.Explorables")]
+
