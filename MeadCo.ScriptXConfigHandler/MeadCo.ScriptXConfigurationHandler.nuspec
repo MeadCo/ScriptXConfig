@@ -16,6 +16,9 @@
     <tags>MeadCo ScriptX Print HTML Raw printing</tags>
     <dependencies>
       <dependency id="MeadCoScriptXBinaryBits" version="7.9.0" />
-    </dependencies>    
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Configuration" />     
+    </frameworkAssemblies>
   </metadata>
 </package>
