@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace MeadCo.ScriptX
 {
@@ -6,7 +7,7 @@ namespace MeadCo.ScriptX
     ///     Describes the location of the downloadable code, its version and the
     ///     helper action to be used to assist with installinhg the code.
     /// </summary>
-    public class InstallerConfiguration : ConfigurationElement
+    public class InstallerConfiguration : ConfigurationElement, IMeadCoBinaryBitsProvider
     {
         /// <summary>
         ///     Provides the name and location of the installer cab file.
@@ -43,6 +44,12 @@ namespace MeadCo.ScriptX
         {
             get { return (string) this["installhelper"]; }
             set { this["installhelper"] = value; }
+        }
+
+        public Uri CodeBase { get; set; }
+        public Uri CodeBaseFor(Version version)
+        {
+            throw new NotImplementedException();
         }
     }
 }

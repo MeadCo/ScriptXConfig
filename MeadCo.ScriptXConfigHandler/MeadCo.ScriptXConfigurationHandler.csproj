@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="IMeadCoBinaryBitsProvider.cs" />
     <Compile Include="InstallerConfiguration.cs" />
     <Compile Include="LicenseConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

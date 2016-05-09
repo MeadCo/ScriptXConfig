@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>http://scriptx.meadroid.com</projectUrl>
+    <licenseUrl>http://scriptx.meadroid.com/knowledge-bank/software-licenses/scriptx-product-license.aspx</licenseUrl>
+    <iconUrl>http://scriptx.meadroid.com/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial v8 Release.</releaseNotes>
+    <copyright>Copyright © 2015, Mead &amp; Co Ltd</copyright>
+    <tags>MeadCo ScriptX Print HTML Raw printing</tags>
+  </metadata>
+</package>
