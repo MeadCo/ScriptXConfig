@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>MeadCoScriptXConfig</id>
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
@@ -14,5 +14,8 @@
     <releaseNotes>Initial v8 Release.</releaseNotes>
     <copyright>Copyright © 2015, Mead &amp; Co Ltd</copyright>
     <tags>MeadCo ScriptX Print HTML Raw printing</tags>
+    <dependencies>
+      <dependency id="MeadCoScriptXBinaryBits" version="8.0.0" />
+    </dependencies>    
   </metadata>
 </package>
