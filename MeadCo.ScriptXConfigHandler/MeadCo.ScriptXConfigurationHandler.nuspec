@@ -15,7 +15,7 @@
     <copyright>Copyright © 2015, Mead &amp; Co Ltd</copyright>
     <tags>MeadCo ScriptX Print HTML Raw printing</tags>
     <dependencies>
-      <dependency id="MeadCoScriptXBinaryBits" version="(7.9.32767" />
+      <dependency id="MeadCoScriptXBinaryBits" version="7.9.0" />
     </dependencies>    
   </metadata>
 </package>
