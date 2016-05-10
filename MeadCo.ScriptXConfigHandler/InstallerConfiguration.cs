@@ -50,9 +50,6 @@ namespace MeadCo.ScriptX
 
         public string CodeBaseFor(Version version) => ($"{Url.ResolveUrl(FileName)}#Version={Version.ToString()}");
 
-        public Uri InstallHelperUri
-        {
-            get { return null; }
-        }
+        public string InstallHelperUri => Url.ResolveUrl(InstallHelper);
     }
 }

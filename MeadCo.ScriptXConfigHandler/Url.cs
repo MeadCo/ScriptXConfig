@@ -56,7 +56,7 @@ namespace MeadCo.ScriptX
                     return VirtualPathUtility.ToAbsolute(originalUrl);
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return originalUrl.Substring(1);
             }
