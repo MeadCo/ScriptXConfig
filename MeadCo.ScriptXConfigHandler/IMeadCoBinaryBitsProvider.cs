@@ -12,7 +12,7 @@ namespace MeadCo.ScriptX
         /// Returns the codebase for the default version available from
         /// the implementation (store)
         /// </summary>
-        Uri CodeBase { get; set; }
+        string CodeBase { get; }
 
         /// <summary>
         /// Returns the codebase for the given version, if available
@@ -20,6 +20,8 @@ namespace MeadCo.ScriptX
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        Uri CodeBaseFor(Version version);
+        string CodeBaseFor(Version version);
+
+        string InstallHelper { get; }
     }
 }

@@ -46,10 +46,13 @@ namespace MeadCo.ScriptX
             set { this["installhelper"] = value; }
         }
 
-        public Uri CodeBase { get; set; }
-        public Uri CodeBaseFor(Version version)
+        public string CodeBase => CodeBaseFor(new Version(Version.Replace(",",".")));
+
+        public string CodeBaseFor(Version version) => ($"{Url.ResolveUrl(FileName)}#Version={Version.ToString()}");
+
+        public Uri InstallHelperUri
         {
-            throw new NotImplementedException();
+            get { return null; }
         }
     }
 }
