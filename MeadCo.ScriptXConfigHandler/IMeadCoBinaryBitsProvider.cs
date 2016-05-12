@@ -22,6 +22,6 @@ namespace MeadCo.ScriptX
         /// <returns></returns>
         string CodeBaseFor(Version version);
 
-        string InstallHelper { get; }
+        string InstallHelperUrl { get; }
     }
 }
