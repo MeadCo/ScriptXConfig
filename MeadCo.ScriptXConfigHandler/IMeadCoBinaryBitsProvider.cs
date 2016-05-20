@@ -22,6 +22,9 @@ namespace MeadCo.ScriptX
         /// <returns></returns>
         string CodeBaseFor(Version version);
 
-        string InstallHelperUrl { get; }
+        /// <summary>
+        /// Returns the default version available from the store.
+        /// </summary>
+        string Version { get; }
     }
 }
