@@ -22,5 +22,6 @@ namespace MeadCo.ScriptX
             get { return (LicenseConfiguration) this["license"]; }
             set { this["license"] = value; }
         }
+
     }
 }
