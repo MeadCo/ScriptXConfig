@@ -12,7 +12,7 @@ namespace MeadCo.ScriptX
 
         public static InstallerConfiguration ClientInstaller => ConfigSection.ClientInstaller;
 
-        public static Installers ManualInstallers => ConfigSection.ClientInstaller.ManualInstallers;
+        public static InstallersCollection ClientInstallers => ConfigSection.ClientInstallers;
 
         private static ScriptXConfigurationHandler ConfigSection
         {

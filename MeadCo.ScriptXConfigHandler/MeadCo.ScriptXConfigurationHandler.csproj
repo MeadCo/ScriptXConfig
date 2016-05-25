@@ -43,7 +43,7 @@
     <Compile Include="Convertors\CaseInsensitiveEnumConfigConverter.cs" />
     <Compile Include="IMeadCoBinaryBitsProvider.cs" />
     <Compile Include="InstallerConfiguration.cs" />
-    <Compile Include="Installers.cs" />
+    <Compile Include="InstallersCollection.cs" />
     <Compile Include="LicenseConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptXConfigurationHandler.cs" />

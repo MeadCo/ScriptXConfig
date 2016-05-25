@@ -11,15 +11,21 @@ namespace MeadCo.ScriptX
     /// </summary>
     public class InstallerConfiguration : ConfigurationElement, IMeadCoBinaryBitsProvider
     {
+        internal  InstallersCollection Parent { get; set; }
+
         /// <summary>
         ///     Provides the name and location of the installer cab file.
         /// </summary>
         [ConfigurationProperty("filename", DefaultValue = "~/content/bin/smsx.cab", IsRequired = true)]
         [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
-        public string FileName
-        {
-            get { return (string) this["filename"]; }
-        }
+        public string FileName => (string) this["filename"];
+
+        /// <summary>
+        ///     Provides the name and location of the installer cab file.
+        /// </summary>
+        [ConfigurationProperty("manualfilename", DefaultValue = "~/content/bin/scriptx.msi", IsRequired = false)]
+        [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
+        public string ManualFileName => (string)this["manualfilename"];
 
         /// <summary>
         ///     Provides the ScriptX version
@@ -35,6 +41,8 @@ namespace MeadCo.ScriptX
             }
         }
 
+        public Version GetVersion => new Version(Version.Replace(",","."));
+
         [ConfigurationProperty("scope", DefaultValue = InstallScope.Machine, IsRequired = false)]
         [TypeConverter(typeof(CaseInsensitiveEnumConfigConverter<InstallScope>))]
         public InstallScope Scope { get { return (InstallScope)this["scope"]; } }
@@ -43,6 +51,7 @@ namespace MeadCo.ScriptX
         [TypeConverter(typeof(CaseInsensitiveEnumConfigConverter<MachineProcessor>))]
         public MachineProcessor Processor { get { return (MachineProcessor)this["processor"]; } }
 
+
         /// <summary>
         ///     Provides the action to be used to assist with installing this version.
         /// </summary>
@@ -50,20 +59,15 @@ namespace MeadCo.ScriptX
         [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 0, MaxLength = 256)]
         public string InstallHelper
         {
-            get { return (string) this["installhelper"]; }
-            set { this["installhelper"] = value; }
-        }
-
-        [System.Configuration.ConfigurationProperty("manualinstallers")]
-        [ConfigurationCollection(typeof(Installers), AddItemName = "installer")]
-        public Installers ManualInstallers
-        {
             get
             {
-                object o = this["manualinstallers"];
-                return o as Installers;
+                string s = (string) this["installhelper"];
+                if (Parent != null && string.IsNullOrEmpty(s)) return Parent.InstallHelper;
+                return s;
             }
         }
+
+        public string InstallHelperUrl => Url.ResolveUrl(InstallHelper);
 
         // Implementation of IMeadCoBinaryBitsProvider
         //
@@ -77,7 +81,7 @@ namespace MeadCo.ScriptX
         /// Return the codebase for the given version if requesting the install scope and processor defined in config
         /// </summary>
         /// <param name="version">Required version</param>
-        /// <param name="scope">Install scope - ujser or machine</param>
+        /// <param name="scope">Install scope - user or machine</param>
         /// <param name="processor">Processor architecture</param>
         /// <returns></returns>
         public string CodeBaseFor(Version version,InstallScope scope=InstallScope.Machine,MachineProcessor processor=MachineProcessor.x86)
@@ -101,18 +105,8 @@ namespace MeadCo.ScriptX
         public string ManualInstallerDownloadUrlFor(Version version, InstallScope scope = InstallScope.Machine,
             MachineProcessor processor = MachineProcessor.x86)
         {
-            // find an entry that matches the version, scope and processor ...
-            foreach (InstallerConfiguration installer in ManualInstallers)
-            {
-                if (installer.Scope == scope && installer.Processor == processor &&
-                    (new Version(installer.Version.Replace(",", "."))) == version)
-                {
-                    return Url.ResolveUrl(installer.FileName);
-                }
-            }
-            return string.Empty;
+            return (scope == Scope && processor == Processor) ? Url.ResolveUrl(ManualFileName) : String.Empty;
         }
 
-        public string InstallHelperUrl => Url.ResolveUrl(InstallHelper);
     }
 }
