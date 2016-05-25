@@ -11,7 +11,7 @@ namespace MeadCo.ScriptX
     /// A collection of InstallerConfiguration elements.
     /// </summary>
     [ConfigurationCollection(typeof(InstallersCollection), AddItemName = "installer")]
-    public class InstallersCollection : ConfigurationElementCollection
+    public class InstallersCollection : ConfigurationElementCollection, IBitsFinder
     {
         /// <summary>
         ///     Provides the action to be used to assist with installing this version.
@@ -38,6 +38,23 @@ namespace MeadCo.ScriptX
         protected override object GetElementKey(ConfigurationElement element)
         {
             return ((InstallerConfiguration) element).FileName;
+        }
+
+
+        // IBitsFinder...
+        public List<IBitsProvider> Find(InstallScope scope)
+        {
+            return (from InstallerConfiguration i in this where i.Scope == scope select i).Cast<IBitsProvider>().ToList();
+        }
+
+        public List<IBitsProvider> Find(MachineProcessor processor)
+        {
+            return (from InstallerConfiguration i in this where i.Processor == processor select i).Cast<IBitsProvider>().ToList();
+        }
+
+        public IBitsProvider FindSingle(InstallScope scope, MachineProcessor processor)
+        {
+            return (from InstallerConfiguration i in this where i.Processor == processor && i.Scope == scope select i).Cast<IBitsProvider>().FirstOrDefault();
         }
     }
 

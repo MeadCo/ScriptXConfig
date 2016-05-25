@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using MeadCo.ScriptX.Convertors;
@@ -9,7 +10,7 @@ namespace MeadCo.ScriptX
     ///     Describes the location of the downloadable code, its version and the
     ///     helper action to be used to assist with installing the code.
     /// </summary>
-    public class InstallerConfiguration : ConfigurationElement, IMeadCoBinaryBitsProvider
+    public class InstallerConfiguration : ConfigurationElement, IBitsProvider, IBitsFinder
     {
         internal  InstallersCollection Parent { get; set; }
 
@@ -75,37 +76,39 @@ namespace MeadCo.ScriptX
         /// <summary>
         /// Return the codebase for the version defined in config.
         /// </summary>
-        public string CodeBase => CodeBaseFor(new Version(Version.Replace(",",".")));
+        public string CodeBase => $"{Url.ResolveUrl(FileName)}#Version={Version.ToString()}";
 
-        /// <summary>
-        /// Return the codebase for the given version if requesting the install scope and processor defined in config
-        /// </summary>
-        /// <param name="version">Required version</param>
-        /// <param name="scope">Install scope - user or machine</param>
-        /// <param name="processor">Processor architecture</param>
-        /// <returns></returns>
-        public string CodeBaseFor(Version version,InstallScope scope=InstallScope.Machine,MachineProcessor processor=MachineProcessor.x86)
-        {
-            return (scope == Scope && processor == Processor) ? ($"{Url.ResolveUrl(FileName)}#Version={Version.ToString()}") : String.Empty;
-        }
 
         /// <summary>
         /// Returns the URL to download the manual installer for machine scope/x86 for the default version
         /// available from the implementation (store)
         /// </summary>
-        public string ManualInstallerDownloadUrl => ManualInstallerDownloadUrlFor(new Version(Version.Replace(",", ".")));
+        public string ManualInstallerDownloadUrl => Url.ResolveUrl(ManualFileName);
 
-        /// <summary>
-        /// Returns the URL to download the manual installer for the given version
-        /// </summary>
-        /// <param name="version"></param>
-        /// <param name="scope"></param>
-        /// <param name="processor"></param>
-        /// <returns></returns>
-        public string ManualInstallerDownloadUrlFor(Version version, InstallScope scope = InstallScope.Machine,
-            MachineProcessor processor = MachineProcessor.x86)
+        // IBitsFinder ...
+        public List<IBitsProvider> Find(InstallScope scope)
         {
-            return (scope == Scope && processor == Processor) ? Url.ResolveUrl(ManualFileName) : String.Empty;
+            if (Parent != null) return Parent.Find(scope);
+
+            List<IBitsProvider> providers = new List<IBitsProvider>();
+            if (scope == Scope) providers.Add(this);
+            return providers;
+        }
+
+        public List<IBitsProvider> Find(MachineProcessor processor)
+        {
+            if (Parent != null) return Parent.Find(processor);
+
+            List<IBitsProvider> providers = new List<IBitsProvider>();
+            if (processor == Processor) providers.Add(this);
+            return providers;
+        }
+
+        public IBitsProvider FindSingle(InstallScope scope, MachineProcessor processor)
+        {
+            if (Parent != null) return Parent.FindSingle(scope, processor);
+
+            return scope == Scope && processor == Processor ? this : default(InstallerConfiguration);
         }
 
     }

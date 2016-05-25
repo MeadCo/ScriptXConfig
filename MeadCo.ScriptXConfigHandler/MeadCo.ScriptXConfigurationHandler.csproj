@@ -41,7 +41,8 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Convertors\CaseInsensitiveEnumConfigConverter.cs" />
-    <Compile Include="IMeadCoBinaryBitsProvider.cs" />
+    <Compile Include="IBitsFinder.cs" />
+    <Compile Include="IBitsProvider.cs" />
     <Compile Include="InstallerConfiguration.cs" />
     <Compile Include="InstallersCollection.cs" />
     <Compile Include="LicenseConfiguration.cs" />
