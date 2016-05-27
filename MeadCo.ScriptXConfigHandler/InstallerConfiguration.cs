@@ -17,14 +17,14 @@ namespace MeadCo.ScriptX
         /// <summary>
         ///     Provides the name and location of the installer cab file.
         /// </summary>
-        [ConfigurationProperty("filename", DefaultValue = "~/content/bin/smsx.cab", IsRequired = true)]
+        [ConfigurationProperty("filename", DefaultValue = "~/content/MeadCo.ScriptX/installers/smsx.cab", IsRequired = true)]
         [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
         public string FileName => (string) this["filename"];
 
         /// <summary>
         ///     Provides the name and location of the installer cab file.
         /// </summary>
-        [ConfigurationProperty("manualfilename", DefaultValue = "~/content/bin/scriptx.msi", IsRequired = false)]
+        [ConfigurationProperty("manualfilename", DefaultValue = "~/content/MeadCo.ScriptX/installers/scriptx.msi", IsRequired = false)]
         [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
         public string ManualFileName => (string)this["manualfilename"];
 
