@@ -21,7 +21,7 @@ namespace MeadCo.ScriptX
     public interface IBitsProvider
     {
         /// <summary>
-        /// Returns the default version available from the store.
+        /// Returns the version of this installer.
         /// </summary>
         string Version { get; }
 
@@ -37,5 +37,15 @@ namespace MeadCo.ScriptX
         /// </summary>
         string ManualInstallerDownloadUrl { get; }
 
+        /// <summary>
+        /// Returns the scope for this installer 
+        /// </summary>
+        InstallScope Scope { get; }
+
+        /// <summary>
+        /// Returns the Processor Architecture for this install
+        /// </summary>
+        MachineProcessor Processor { get; }
     }
+
 }
