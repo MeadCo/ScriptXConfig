@@ -21,9 +21,14 @@ namespace MeadCo.ScriptX
     public interface IBitsProvider
     {
         /// <summary>
-        /// Returns the version of this installer.
+        /// Returns the version of this installer - may be a keyword or dotted.
         /// </summary>
         string Version { get; }
+
+        /// <summary>
+        /// Returns the version of this installer - must be comma delimited.
+        /// </summary>
+        string CodebaseVersion { get; }
 
         /// <summary>
         /// Returns the codebase for the default version available from

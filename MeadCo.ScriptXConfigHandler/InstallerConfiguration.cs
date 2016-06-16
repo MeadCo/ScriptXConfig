@@ -38,9 +38,11 @@ namespace MeadCo.ScriptX
             get
             {
                 var v = (string) this["version"];
-                return v.Replace('.', ',');
+                return v;
             }
         }
+
+        public string CodebaseVersion => Version.Replace(".",",");
 
         public Version GetVersion => new Version(Version.Replace(",","."));
 
@@ -76,7 +78,7 @@ namespace MeadCo.ScriptX
         /// <summary>
         /// Return the codebase for the version defined in config.
         /// </summary>
-        public string CodeBase => $"{Url.ResolveUrl(FileName)}#Version={Version.ToString()}";
+        public string CodeBase => $"{Url.ResolveUrl(FileName)}#Version={CodebaseVersion}";
 
 
         /// <summary>
