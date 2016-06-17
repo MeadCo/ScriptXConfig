@@ -7,7 +7,7 @@ namespace MeadCo.ScriptX
     ///     A license configuration section indicates that MeadCo Security Manager
     ///     is required to license the content and provide acess to advanced features.
     /// </summary>
-    public class LicenseConfiguration : ConfigurationElement
+    public class LicenseConfiguration : ConfigurationElement, ILicenseProvider
     {
         /// <summary>
         ///     The unqiue license ID (GUID)
