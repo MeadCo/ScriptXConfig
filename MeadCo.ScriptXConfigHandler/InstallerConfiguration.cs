@@ -110,6 +110,15 @@ namespace MeadCo.ScriptX
             return providers;
         }
 
+        public List<IBitsProvider> Find(string userAgent)
+        {
+            if (Parent != null) return Parent.Find(userAgent);
+
+            List<IBitsProvider> providers = new List<IBitsProvider>();
+            if (Library.ProcessorFromAgent(userAgent) == Processor) providers.Add(this);
+            return providers;
+        }
+
         public IBitsProvider FindSingle(InstallScope scope, MachineProcessor processor)
         {
             if (Parent != null) return Parent.FindSingle(scope, processor);

@@ -52,6 +52,33 @@ namespace MeadCo.ScriptX
             return (from InstallerConfiguration i in this where i.Processor == processor select i).Cast<IBitsProvider>().ToList();
         }
 
+        public List<IBitsProvider> Find(string userAgent)
+        {
+            MachineProcessor processor = Library.ProcessorFromAgent(userAgent);
+            Version v8 = new Version(8, 0);
+
+            if (Library.AgentIs11(userAgent))
+            {
+                var providers =
+                    (from InstallerConfiguration i in this where i.Processor == processor && i.GetVersion >= v8 select i)
+                        .Cast<IBitsProvider>()
+                        .ToList();
+                if (providers.Any())
+                    return providers;
+            }
+            else
+            {
+                var providers =
+                    (from InstallerConfiguration i in this where i.Processor == processor && i.GetVersion < v8 select i)
+                        .Cast<IBitsProvider>()
+                        .ToList();
+                if (providers.Any())
+                    return providers;
+            }
+
+            return Find(processor);
+        }
+
         public IBitsProvider FindSingle(InstallScope scope, MachineProcessor processor)
         {
             return (from InstallerConfiguration i in this where i.Processor == processor && i.Scope == scope select i).Cast<IBitsProvider>().FirstOrDefault();
