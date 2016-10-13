@@ -29,5 +29,15 @@ namespace MeadCo.ScriptX
         /// <param name="processor"></param>
         /// <returns></returns>
         IBitsProvider FindSingle(InstallScope scope, MachineProcessor processor);
+
+        /// <summary>
+        /// obtain the best provider for the scope and the user agent.
+        /// The implementation will determine the x86/x64 processor and 
+        /// IE version and return the best provider for that IE Version.
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="userAgent">e.g. Request.ServerVariables["HTTP_USER_AGENT"]</param>
+        /// <returns></returns>
+        IBitsProvider FindSingle(InstallScope scope, string userAgent);
     }
 }

@@ -56,6 +56,44 @@ namespace MeadCo.ScriptX
         {
             return (from InstallerConfiguration i in this where i.Processor == processor && i.Scope == scope select i).Cast<IBitsProvider>().FirstOrDefault();
         }
+
+        /// <summary>
+        /// Find the best we can for the user agent
+        /// </summary>
+        /// <param name="scope"></param>
+        /// <param name="userAgent"></param>
+        /// <returns></returns>
+        public IBitsProvider FindSingle(InstallScope scope, string userAgent)
+        {
+            MachineProcessor processor = Library.ProcessorFromAgent(userAgent);
+            Version v8 = new Version(8, 0);
+
+            var providers = from InstallerConfiguration i in this
+                where i.Processor == processor && i.Scope == scope
+                select i;
+
+            // If the user is using IE 11 then provide ScriptX v8 if we can
+            if (Library.AgentIs11(userAgent))
+            {
+                IBitsProvider provider = (from InstallerConfiguration i in providers where i.GetVersion >= v8 select i).FirstOrDefault();
+                if (provider != null)
+                {
+                    return provider;
+                }
+            }
+            else
+            {
+                // Not using IE 11, provide ScriptX 7.7 (prefered) or earlier if we can
+                IBitsProvider provider = (from InstallerConfiguration i in providers where i.GetVersion < v8 select i).FirstOrDefault();
+                if (provider != null)
+                {
+                    return provider;
+                }
+            }
+
+            // provide something, if we can
+            return FindSingle(scope, processor);
+        }
     }
 
 }

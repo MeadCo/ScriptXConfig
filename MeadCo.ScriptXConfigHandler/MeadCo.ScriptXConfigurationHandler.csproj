@@ -46,6 +46,7 @@
     <Compile Include="ILicenseProvider.cs" />
     <Compile Include="InstallerConfiguration.cs" />
     <Compile Include="InstallersCollection.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="LicenseConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptXConfigurationHandler.cs" />

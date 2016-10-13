@@ -12,6 +12,10 @@ namespace MeadCo.ScriptX
     /// </summary>
     public class InstallerConfiguration : ConfigurationElement, IBitsProvider, IBitsFinder
     {
+        /// <summary>
+        /// The owning collection, if there is one. And if there is, searches should be refered
+        /// to that collection.
+        /// </summary>
         internal  InstallersCollection Parent { get; set; }
 
         /// <summary>
@@ -113,5 +117,11 @@ namespace MeadCo.ScriptX
             return scope == Scope && processor == Processor ? this : default(InstallerConfiguration);
         }
 
+        public IBitsProvider FindSingle(InstallScope scope, string userAgent)
+        {
+            if (Parent != null) return Parent.FindSingle(scope, userAgent);
+
+            return FindSingle(scope,Library.ProcessorFromAgent(userAgent));
+        }
     }
 }
