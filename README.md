@@ -1,3 +1,4 @@
+
 # MeadCo.ScriptXConfigurationHandler
 A library to support a custom configuration section in ASP.NET applications that use the [ScriptX Add-on for Internet Explorer][6] to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing. 
 
@@ -19,7 +20,8 @@ A standard declaration is required in the config file:
   <configSections>
     <!-- meadco.scriptx -->
     <sectionGroup name="meadco">
-      <section name="scriptx" type="MeadCo.ScriptX.ScriptXConfigurationHandler,MeadCo.ScriptXConfigurationHandler" />
+      <section name="scriptx" 
+           type="MeadCo.ScriptX.ScriptXConfigurationHandler,MeadCo.ScriptXConfigurationHandler" />
     </sectionGroup>
   </configSections>
 ```
@@ -73,13 +75,14 @@ The license for the application can be defined
 ```
     <meadco>
         <scriptx>
-            <license guid="{55326F1D-876A-447F-BA96-1A68B8EFC288}" filename="~/content/sxlic.mlf" revision="10" peruser="true" />
+            <license guid="{55326F1D-876A-447F-BA96-1A68B8EFC288}" 
+                filename="~/content/sxlic.mlf" revision="10" peruser="true" />
         </scriptx>
     </meadco>
 ```
 
 ## Copyright
-Copyright © 2016 [Mead & Co Ltd][6].
+Copyright Â© 2016 [Mead & Co Ltd][6].
 
 ## License 
 **MeadCo.ScriptXConfigurationHandler** is under MIT license - http://www.opensource.org/licenses/mit-license.php
