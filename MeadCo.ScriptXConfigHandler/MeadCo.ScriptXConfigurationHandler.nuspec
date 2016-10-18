@@ -6,12 +6,12 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>http://scriptx.meadroid.com</projectUrl>
-    <licenseUrl>http://scriptx.meadroid.com/knowledge-bank/software-licenses/scriptx-product-license.aspx</licenseUrl>
+    <projectUrl>https://github.com/MeadCo/ScriptXConfig</projectUrl>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <iconUrl>http://scriptx.meadroid.com/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Initial v8 Release.</releaseNotes>
+    <description>A library to support a custom configuration section in ASP.NET applications that use the ScriptX Add-on for Internet Explorer to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing.</description>
+    <releaseNotes>Initial release of v2. This version is not compatible with v1.</releaseNotes>
     <copyright>Copyright © 2016, Mead &amp; Co Ltd</copyright>
     <tags>MeadCo ScriptX Print HTML Raw printing</tags>
     <dependencies>

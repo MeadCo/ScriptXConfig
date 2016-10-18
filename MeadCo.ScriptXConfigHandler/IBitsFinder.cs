@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MeadCo.ScriptX
 {
+    /// <summary>
+    /// Locate bitprovider(s) that match requirements
+    /// </summary>
     public interface IBitsFinder
     {
         /// <summary>

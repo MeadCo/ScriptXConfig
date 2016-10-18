@@ -121,12 +121,12 @@ namespace MeadCo.ScriptX
         private static bool IsAbsolutePath(string originalUrl)
         {
             // *** Absolute path - just return
-            int IndexOfSlashes = originalUrl.IndexOf("://");
-            int IndexOfQuestionMarks = originalUrl.IndexOf("?");
+            int indexOfSlashes = originalUrl.IndexOf("://");
+            int indexOfQuestionMarks = originalUrl.IndexOf("?");
 
-            if (IndexOfSlashes > -1 &&
-                 (IndexOfQuestionMarks < 0 ||
-                  (IndexOfQuestionMarks > -1 && IndexOfQuestionMarks > IndexOfSlashes)
+            if (indexOfSlashes > -1 &&
+                 (indexOfQuestionMarks < 0 ||
+                  (indexOfQuestionMarks > -1 && indexOfQuestionMarks > indexOfSlashes)
                   )
                 )
                 return true;
