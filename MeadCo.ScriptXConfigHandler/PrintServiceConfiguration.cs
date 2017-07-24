@@ -79,9 +79,15 @@ namespace MeadCo.ScriptX
             set { this["usealways"] = value; }
         }
 
-        public Uri PrintHtmlService => new Uri($"{Server.AbsoluteUri}api/v{Version}/printhtml");
+        /// <summary>
+        /// IsAvailable if we have a >0 api version
+        /// </summary>
+        public bool IsAvailable => Version > 0;
 
-        public Uri SubscriptionService => new Uri($"{Server.AbsoluteUri}api/v{Version}/licensing");
+        public Uri PrintHtmlService => IsAvailable ? new Uri($"{Server.AbsoluteUri}api/v{Version}/printhtml") : null;
+
+        public Uri SubscriptionService => IsAvailable ? new Uri($"{Server.AbsoluteUri}api/v{Version}/licensing") : null;
+
         public bool UseForAgent(string userAgent)
         {
             return !AgentParser.IsInternetExplorer(userAgent) ||

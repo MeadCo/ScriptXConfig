@@ -14,13 +14,15 @@ namespace MeadCo.ScriptX
         Guid SubscriptionGuid { get; }
 
         /// <summary>
-        /// The service version. 0 => no service is defined.
+        /// Returns true if a service is defined, whether it is valid/works is a different question!
         /// </summary>
-        int Version { get; }
+        bool IsAvailable { get; }
 
         /// <summary>
         /// Determine if the ScriptX.Print service is available and should be used
-        /// for the agent
+        /// for the agent.
+        /// Note this will always return true for non IE agents, false for IE 7..10
+        /// and dependent on whether the service IsAvailable for IE 11
         /// </summary>
         /// <param name="userAgent">The user agent string from the browser</param>
         /// <returns></returns>
