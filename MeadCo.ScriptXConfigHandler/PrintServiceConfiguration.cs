@@ -44,7 +44,7 @@ namespace MeadCo.ScriptX
         /// <summary>
         ///     The service version to connect to (used to fabricate the endpoints)
         /// </summary>
-        [ConfigurationProperty("version", DefaultValue = "1", IsRequired = false)]
+        [ConfigurationProperty("version", DefaultValue = "0", IsRequired = true)]
         [IntegerValidator(ExcludeRange = false, MaxValue = 100, MinValue = 0)]
         public int Version
         {

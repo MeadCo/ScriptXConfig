@@ -14,6 +14,11 @@ namespace MeadCo.ScriptX
         Guid SubscriptionGuid { get; }
 
         /// <summary>
+        /// The service version. 0 => no service is defined.
+        /// </summary>
+        int Version { get; }
+
+        /// <summary>
         /// Determine if the ScriptX.Print service is available and should be used
         /// for the agent
         /// </summary>
