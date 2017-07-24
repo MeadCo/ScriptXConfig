@@ -1,15 +1,18 @@
 
 # MeadCo.ScriptXConfigurationHandler
-A library to support a custom configuration section in ASP.NET applications that use the [ScriptX Add-on for Internet Explorer][6] to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing. 
+A library to support a custom configuration section in ASP.NET applications that use the [ScriptX Add-on for Internet Explorer][6] or [ScriptX.Print Service][7] to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing. 
 
-The library is used by the ScriptX Helper ([MVC][1]) libraries and is also used by the [MeadCo ScriptX Samples][5] system to deliver appropriate code versions to users.
+The library is used by the ScriptX Helper ([MVC][1]) libraries and is also used by the [MeadCo ScriptX Samples][5] system to deliver appropriate code versions and/or javascript to user devices.
 
 ## Current Version
-2.0.0
+3.0.0
 
-v2.0 is not compatible with v1. 
+v3 is not compatible with v1. It is compatible with v2.
 
 v1 was not published in source form but was included in the Nuget package for the [ScriptX 7 installers][2]. With v2 we have disconnected the binding between ScriptX releases and this code by making the [binary bits][3] Nuget package a dependency of this package.
+
+v3 adds support for defining the use of the ScriptX.Print service (cloud, on-premise or workstation) for non IE browsers.
+
 ## Nuget Gallery
 [MeadCo.ScriptXConfigurationHandler][4]
 ## Configuration
@@ -26,11 +29,26 @@ A standard declaration is required in the config file:
   </configSections>
 ```
 
-The section can then  be included in the config to describe the available code and license.
-The section describes the version(s) of installer(s) available either as an auto installable (cab) file or a file suitable for download and manual install by the user and for which processor (x86 or x64) and scope (machine or user).
+The section can then  be included in the config to describe the available code and license for the Internet Explorer Add-on and service endpoints and license for using ScriptX.Print.
+For the add-on, the section describes the version(s) of installer(s) available either as an auto installable (cab) file or a file suitable for download and manual install by the user and for which processor (x86 or x64) and scope (machine or user).
 
-### Single version
-For example, the [binary bits][3] package adds a description of the single version available from the package.
+### ScriptX.Print Service
+
+```
+    <meadco>
+        <scriptx>
+            <printservice 
+                server="https://scriptx.print.meadroid.com"
+                subscriptionid="{13598d2f-8724-467b-ae64-6e53e9e9f644}"
+                version = "1" />
+        </scriptx>
+    </meadco>
+```
+
+### Add-on
+
+#### Single version
+For example, the [ScriptX Add-on binary bits][3] package adds a description of the single version available from the package.
 
 ```
   <meadco>
@@ -43,7 +61,7 @@ For example, the [binary bits][3] package adds a description of the single versi
   </meadco>
 ```
 
-### Multiple installers and versions
+#### Multiple installers and versions
 Installers for different processors or scopes or versions can be defined:
 ```
  <meadco>
@@ -69,8 +87,8 @@ Installers for different processors or scopes or versions can be defined:
   </meadco>
 ```
 
-### License
-The license for the application can be defined 
+#### License
+The license to be used by the add-on can be defined 
 
 ```
     <meadco>
@@ -81,8 +99,10 @@ The license for the application can be defined
     </meadco>
 ```
 
+Note that filename may be a url. 
+
 ## Copyright
-Copyright © 2016 [Mead & Co Ltd][6].
+Copyright © 2016-2017 [Mead & Co Ltd][6].
 
 ## License 
 **MeadCo.ScriptXConfigurationHandler** is under MIT license - http://www.opensource.org/licenses/mit-license.php
@@ -93,3 +113,4 @@ Copyright © 2016 [Mead & Co Ltd][6].
 [4]: https://www.nuget.org/packages/MeadCoScriptXConfigurationHandler
 [5]: http://scriptxsamples.v8.meadroid.com/
 [6]: http://scriptx.meadroid.com
+[7]: https://scriptx.print-roadmap.meadroid.com

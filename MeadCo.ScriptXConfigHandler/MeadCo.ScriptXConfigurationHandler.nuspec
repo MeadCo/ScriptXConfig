@@ -11,7 +11,7 @@
     <iconUrl>http://scriptx.meadroid.com/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library to support a custom configuration section in ASP.NET applications that use the ScriptX Add-on for Internet Explorer to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing.</description>
-    <releaseNotes>Initial release of v2. This version is not compatible with v1.</releaseNotes>
+    <releaseNotes>Initial release of v3 which adds support for configuring ScriptX.Print services. This version is not compatible with v1.</releaseNotes>
     <copyright>Copyright © 2016, Mead &amp; Co Ltd</copyright>
     <tags>MeadCo ScriptX Print HTML Raw printing</tags>
     <dependencies>

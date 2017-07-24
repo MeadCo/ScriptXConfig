@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeadCo.ScriptX.Helpers;
 
 namespace MeadCo.ScriptX
 {
@@ -54,29 +55,38 @@ namespace MeadCo.ScriptX
 
         public List<IBitsProvider> Find(string userAgent)
         {
-            MachineProcessor processor = Library.ProcessorFromAgent(userAgent);
-            Version v8 = new Version(8, 0);
-
-            if (Library.AgentIs11(userAgent))
+            if (AgentParser.IsInternetExplorer(userAgent))
             {
-                var providers =
-                    (from InstallerConfiguration i in this where i.Processor == processor && i.GetVersion >= v8 select i)
+                MachineProcessor processor = AgentParser.Processor(userAgent);
+                Version v8 = new Version(8, 0);
+
+                if (AgentParser.IsInternetExplorer11(userAgent))
+                {
+                    var providers =
+                        (from InstallerConfiguration i in this
+                            where i.Processor == processor && i.GetVersion >= v8
+                            select i)
                         .Cast<IBitsProvider>()
                         .ToList();
-                if (providers.Any())
-                    return providers;
-            }
-            else
-            {
-                var providers =
-                    (from InstallerConfiguration i in this where i.Processor == processor && i.GetVersion < v8 select i)
+                    if (providers.Any())
+                        return providers;
+                }
+                else
+                {
+                    var providers =
+                        (from InstallerConfiguration i in this
+                            where i.Processor == processor && i.GetVersion < v8
+                            select i)
                         .Cast<IBitsProvider>()
                         .ToList();
-                if (providers.Any())
-                    return providers;
+                    if (providers.Any())
+                        return providers;
+                }
+
+                return Find(processor);
             }
 
-            return Find(processor);
+            return new List<IBitsProvider>();
         }
 
         public IBitsProvider FindSingle(InstallScope scope, MachineProcessor processor)
@@ -92,34 +102,42 @@ namespace MeadCo.ScriptX
         /// <returns></returns>
         public IBitsProvider FindSingle(InstallScope scope, string userAgent)
         {
-            MachineProcessor processor = Library.ProcessorFromAgent(userAgent);
-            Version v8 = new Version(8, 0);
-
-            var providers = from InstallerConfiguration i in this
-                where i.Processor == processor && i.Scope == scope
-                select i;
-
-            // If the user is using IE 11 then provide ScriptX v8 if we can
-            if (Library.AgentIs11(userAgent))
+            if (AgentParser.IsInternetExplorer(userAgent))
             {
-                IBitsProvider provider = (from InstallerConfiguration i in providers where i.GetVersion >= v8 select i).FirstOrDefault();
-                if (provider != null)
+
+                MachineProcessor processor = AgentParser.Processor(userAgent);
+                Version v8 = new Version(8, 0);
+
+                var providers = from InstallerConfiguration i in this
+                    where i.Processor == processor && i.Scope == scope
+                    select i;
+
+                // If the user is using IE 11 then provide ScriptX v8 if we can
+                if (AgentParser.IsInternetExplorer11(userAgent))
                 {
-                    return provider;
+                    IBitsProvider provider =
+                        (from InstallerConfiguration i in providers where i.GetVersion >= v8 select i).FirstOrDefault();
+                    if (provider != null)
+                    {
+                        return provider;
+                    }
                 }
-            }
-            else
-            {
-                // Not using IE 11, provide ScriptX 7.7 (prefered) or earlier if we can
-                IBitsProvider provider = (from InstallerConfiguration i in providers where i.GetVersion < v8 select i).FirstOrDefault();
-                if (provider != null)
+                else
                 {
-                    return provider;
+                    // Not using IE 11, provide ScriptX 7.7 (prefered) or earlier if we can
+                    IBitsProvider provider =
+                        (from InstallerConfiguration i in providers where i.GetVersion < v8 select i).FirstOrDefault();
+                    if (provider != null)
+                    {
+                        return provider;
+                    }
                 }
+
+                // provide something, if we can
+                return FindSingle(scope, processor);
             }
 
-            // provide something, if we can
-            return FindSingle(scope, processor);
+            return null;
         }
     }
 

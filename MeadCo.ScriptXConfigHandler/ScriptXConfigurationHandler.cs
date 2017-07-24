@@ -45,5 +45,8 @@ namespace MeadCo.ScriptX
                 return o as InstallersCollection;
             }
         }
+
+        [ConfigurationProperty("printservice")]
+        public PrintServiceConfiguration PrintService => (PrintServiceConfiguration) this["printservice"];
     }
 }

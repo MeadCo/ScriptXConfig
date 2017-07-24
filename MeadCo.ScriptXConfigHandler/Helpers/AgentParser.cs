@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MeadCo.ScriptX
+﻿namespace MeadCo.ScriptX.Helpers
 {
     /// <summary>
     /// Some useful functions
     /// </summary>
-    public class Library
+    public class AgentParser
     {
         /// <summary>
         /// Determine the processor the browser agent in running on
         /// </summary>
         /// <param name="agent">The browser user agent string</param>
         /// <returns></returns>
-        public static MachineProcessor ProcessorFromAgent(string agent)
+        public static MachineProcessor Processor(string agent)
         {
             bool isWin64 = agent.Contains("Win64");
 
@@ -28,9 +22,19 @@ namespace MeadCo.ScriptX
         /// </summary>
         /// <param name="agent">The browser user agent string</param>
         /// <returns></returns>
-        public static bool AgentIs11(string agent)
+        public static bool IsInternetExplorer11(string agent)
         {
-            return agent.Contains("Trident") && agent.Contains("rv:11");
+            return IsInternetExplorer(agent) && agent.Contains("rv:11");
+        }
+
+        /// <summary>
+        /// Determine if the user agent is for IE 
+        /// </summary>
+        /// <param name="agent"></param>
+        /// <returns></returns>
+        public static bool IsInternetExplorer(string agent)
+        {
+            return agent.Contains("Trident");
         }
     }
 }

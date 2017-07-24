@@ -41,16 +41,21 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Convertors\CaseInsensitiveEnumConfigConverter.cs" />
+    <Compile Include="Convertors\UriConvertor.cs" />
     <Compile Include="IBitsFinder.cs" />
     <Compile Include="IBitsProvider.cs" />
     <Compile Include="ILicenseProvider.cs" />
     <Compile Include="InstallerConfiguration.cs" />
     <Compile Include="InstallersCollection.cs" />
-    <Compile Include="Library.cs" />
+    <Compile Include="IPrintService.cs" />
+    <Compile Include="Helpers\AgentParser.cs" />
     <Compile Include="LicenseConfiguration.cs" />
+    <Compile Include="PrintServiceConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptXConfigurationHandler.cs" />
-    <Compile Include="Url.cs" />
+    <Compile Include="Validators\UriValidator.cs" />
+    <Compile Include="Validators\UriValidatorAttribute.cs" />
+    <Compile Include="Helpers\Url.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MeadCo.ScriptXConfigurationHandler.nuspec" />

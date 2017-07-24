@@ -21,6 +21,8 @@ namespace MeadCo.ScriptX
 
         public static InstallersCollection ClientInstallers => ConfigSection.ClientInstallers;
 
+        public static PrintServiceConfiguration PrintService => ConfigSection.PrintService;
+
         private static ScriptXConfigurationHandler ConfigSection
         {
             get

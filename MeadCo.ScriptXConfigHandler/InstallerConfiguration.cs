@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using MeadCo.ScriptX.Convertors;
+using MeadCo.ScriptX.Helpers;
 
 namespace MeadCo.ScriptX
 {
@@ -115,7 +116,7 @@ namespace MeadCo.ScriptX
             if (Parent != null) return Parent.Find(userAgent);
 
             List<IBitsProvider> providers = new List<IBitsProvider>();
-            if (Library.ProcessorFromAgent(userAgent) == Processor) providers.Add(this);
+            if (AgentParser.IsInternetExplorer(userAgent) && AgentParser.Processor(userAgent) == Processor) providers.Add(this);
             return providers;
         }
 
@@ -128,9 +129,14 @@ namespace MeadCo.ScriptX
 
         public IBitsProvider FindSingle(InstallScope scope, string userAgent)
         {
-            if (Parent != null) return Parent.FindSingle(scope, userAgent);
+            if (AgentParser.IsInternetExplorer(userAgent))
+            {
+                if (Parent != null) return Parent.FindSingle(scope, userAgent);
 
-            return FindSingle(scope,Library.ProcessorFromAgent(userAgent));
+                return FindSingle(scope, AgentParser.Processor(userAgent));
+            }
+
+            return null;
         }
     }
 }
