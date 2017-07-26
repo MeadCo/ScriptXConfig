@@ -7,11 +7,11 @@ The library is used by the ScriptX Helper ([MVC][1]) libraries and is also used 
 ## Current Version
 3.0.0
 
-v3 is not compatible with v1. It is compatible with v2.
+v3 is not compatible with v1. It is not compatible with v2.
 
 v1 was not published in source form but was included in the Nuget package for the [ScriptX 7 installers][2]. With v2 we have disconnected the binding between ScriptX releases and this code by making the [binary bits][3] Nuget package a dependency of this package.
 
-v3 adds support for defining the use of the ScriptX.Print service (cloud, on-premise or workstation) for non IE browsers.
+v3 adds support for defining the use of the ScriptX.Print service (cloud, on-premise or workstation) for non IE browsers. References to MeadCo.ScriptX.Library must bne changed to MeadCo.ScriptX.Helpers (and probably to .AgentParser).
 
 ## Nuget Gallery
 [MeadCo.ScriptXConfigurationHandler][4]
