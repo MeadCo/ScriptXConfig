@@ -5,13 +5,13 @@ A library to support a custom configuration section in ASP.NET applications that
 The library is used by the ScriptX Helper ([MVC][1]) libraries and is also used by the [MeadCo ScriptX Samples][5] system to deliver appropriate code versions and/or javascript to user devices.
 
 ## Current Version
-3.0.0
-
-v3 is not compatible with v1. It is not compatible with v2.
+4.0.0
 
 v1 was not published in source form but was included in the Nuget package for the [ScriptX 7 installers][2]. With v2 we have disconnected the binding between ScriptX releases and this code by making the [binary bits][3] Nuget package a dependency of this package.
 
-v3 adds support for defining the use of the ScriptX.Print service (cloud, on-premise or workstation) for non IE browsers. References to MeadCo.ScriptX.Library must be changed to MeadCo.ScriptX.Helpers (and probably to .AgentParser).
+v3 added support for defining the use of the ScriptX.Print service (on cloud or on-premise) for non IE browsers. References to MeadCo.ScriptX.Library must be changed to MeadCo.ScriptX.Helpers (and probably to .AgentParser).
+
+v4 added support for defining the use of the ScriptX.Print service on Workstation for non IE browsers and refined support for on cloud or on premise services. References to MeadCo.ScriptX.Library must be changed to MeadCo.ScriptX.Helpers.
 
 ## Nuget Gallery
 [MeadCo.ScriptXConfigurationHandler][4]
@@ -38,12 +38,17 @@ For the add-on, the section describes the version(s) of installer(s) available e
     <meadco>
         <scriptx>
             <printservice 
-                server="https://scriptx.print.meadroid.com"
-                subscriptionid="{13598d2f-8724-467b-ae64-6e53e9e9f644}"
-                version = "1" />
+                server="https://scriptx.print.meadroid.com" apiversion="1"
+                guid="{13598d2f-8724-467b-ae64-6e53e9e9f644}"
+                filename="~/content/sxlic.mlf" revision="10" />
         </scriptx>
     </meadco>
 ```
+ApiVersion signifies the API version supported by your client code (this is coded into the API endpoints).
+
+Filename and Revision only apply when using the For Windows PC service and you want to use the service to install the license. 
+For the On Premise Service, no subscription/license GUID is required as a service license is installed with the server.
+For MeadCo's Cloud service the guid will be taken as the subscription id and filename and revision are not required.
 
 ### Add-on
 
@@ -111,6 +116,6 @@ Copyright © 2016-2017 [Mead & Co Ltd][6].
 [2]: https://www.nuget.org/packages/MeadCoScriptXInstallers/
 [3]: https://www.nuget.org/packages/MeadCoScriptXBinaryBits/
 [4]: https://www.nuget.org/packages/MeadCoScriptXConfigurationHandler
-[5]: http://scriptxsamples.v8.meadroid.com/
-[6]: http://scriptx.meadroid.com
-[7]: https://scriptx.print-roadmap.meadroid.com
+[5]: http://scriptxprintsamples.meadroid.com/
+[6]: https://www.meadroid.com/Features/ScriptXAddOn
+[7]: https://scriptxservices.meadroid.com

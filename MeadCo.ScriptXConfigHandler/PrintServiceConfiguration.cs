@@ -21,15 +21,15 @@ namespace MeadCo.ScriptX
         /// <summary>
         ///     The unqiue subscription ID (GUID) (required for Cloud)
         /// </summary>
-        [ConfigurationProperty("subscriptionguid", IsRequired = false)]
-        public Guid SubscriptionGuid
+        [ConfigurationProperty("guid", IsRequired = true)]
+        public Guid Guid
         {
             get
             {
                 Guid guid;
                 try
                 {
-                    guid = (Guid)this["subscriptionguid"];
+                    guid = (Guid)this["guid"];
                 }
                 catch (Exception)
                 {
@@ -38,15 +38,48 @@ namespace MeadCo.ScriptX
 
                 return guid;
             }
-            set { this["subscriptionguid"] = value.ToString(); }
+            set { this["guid"] = value.ToString(); }
         }
+
+        /// <summary>
+        ///     The Revision of the license
+        /// </summary>
+        [ConfigurationProperty("revision", DefaultValue = "0", IsRequired = false)]
+        [IntegerValidator(ExcludeRange = false, MaxValue = 100, MinValue = 0)]
+        public int Revision
+        {
+            get { return (int)this["revision"]; }
+            set { this["revision"] = value; }
+        }
+
+        /// <summary>
+        ///     the location of the license file
+        /// </summary>
+        [ConfigurationProperty("filename", DefaultValue = "~/content/sxlic.mlf", IsRequired = false)]
+        [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
+        public string FileName
+        {
+            get
+            {
+                try
+                {
+                    return (string)this["filename"];
+                }
+                catch (Exception)
+                {
+                    return "~/content/sxlic.mlf";
+                }
+            }
+            set { this["filename"] = value; }
+        }
+
 
         /// <summary>
         ///     The service version to connect to (used to fabricate the endpoints)
         /// </summary>
         [ConfigurationProperty("version", DefaultValue = "0", IsRequired = true)]
         [IntegerValidator(ExcludeRange = false, MaxValue = 100, MinValue = 0)]
-        public int Version
+        public int ApiVersion
         {
             get { return (int)this["version"]; }
             set { this["version"] = value; }
@@ -67,32 +100,49 @@ namespace MeadCo.ScriptX
             set { this["server"] = value; }
         }
 
-        [ConfigurationProperty("usealways",IsRequired = false)]
+        [ConfigurationProperty("notie11",IsRequired = false)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool UseAlways
+        // ReSharper disable once InconsistentNaming
+        public bool NotIE11
         {
             get
             {
-                return (bool)this["usealways"];
+                return (bool)this["notie11"];
             }
 
-            set { this["usealways"] = value; }
+            set { this["notie11"] = value; }
+        }
+
+
+        public bool UseForAgent(string userAgent)
+        {
+            return !AgentParser.IsInternetExplorer(userAgent) ||
+                   (!NotIE11 && AgentParser.IsInternetExplorer11(userAgent) && Availability != ServiceConnector.None);
         }
 
         /// <summary>
         /// IsAvailable if we have a >0 api version
         /// </summary>
-        public bool IsAvailable => Version > 0;
-
-        public Uri PrintHtmlService => IsAvailable ? new Uri($"{Server.AbsoluteUri}api/v{Version}/printhtml") : null;
-
-        public Uri SubscriptionService => IsAvailable ? new Uri($"{Server.AbsoluteUri}api/v{Version}/licensing") : null;
-
-        public bool UseForAgent(string userAgent)
+        public ServiceConnector Availability
         {
-            return !AgentParser.IsInternetExplorer(userAgent) ||
-                   (UseAlways && AgentParser.IsInternetExplorer11(userAgent));
+            get
+            {
+                if ( ApiVersion > 0)
+                {
+                    return FileName.Length > 0 ? ServiceConnector.Windows : ServiceConnector.Cloud;
+                }
 
+                return ServiceConnector.None;
+            }
         }
+
+        public Uri PrintHtmlService => Availability != ServiceConnector.None ? new Uri($"{Server.AbsoluteUri}api/v{ApiVersion}/printhtml") : null;
+
+        public Uri LicenseService => Availability != ServiceConnector.None ? new Uri($"{Server.AbsoluteUri}api/v{ApiVersion}/licensing") : null;
+
+        public Uri MonitorService => Availability != ServiceConnector.None ? new Uri($"{Server.AbsoluteUri}api/v{ApiVersion}/monitor") : null;
+
+        public Uri TestService => Availability != ServiceConnector.None ? new Uri($"{Server.AbsoluteUri}api/v{ApiVersion}/test") : null;
+
     }
 }
