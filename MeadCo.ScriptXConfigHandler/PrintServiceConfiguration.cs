@@ -55,8 +55,8 @@ namespace MeadCo.ScriptX
         /// <summary>
         ///     the location of the license file
         /// </summary>
-        [ConfigurationProperty("filename", DefaultValue = "~/content/sxlic.mlf", IsRequired = false)]
-        [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 1, MaxLength = 256)]
+        [ConfigurationProperty("filename", DefaultValue = "", IsRequired = false)]
+        [StringValidator(InvalidCharacters = "!@#$%^&*()[]{};'\"|\\", MinLength = 0, MaxLength = 256)]
         public string FileName
         {
             get
@@ -67,7 +67,7 @@ namespace MeadCo.ScriptX
                 }
                 catch (Exception)
                 {
-                    return "~/content/sxlic.mlf";
+                    return "";
                 }
             }
             set { this["filename"] = value; }
