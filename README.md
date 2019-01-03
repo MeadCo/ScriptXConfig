@@ -1,6 +1,6 @@
 
 # MeadCo.ScriptXConfigurationHandler
-A library to support a custom configuration section in ASP.NET applications that use the [ScriptX Add-on for Internet Explorer][6] or [ScriptX.Print Service][7] to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing. 
+A library to support a custom configuration section in ASP.NET applications that use the [ScriptX Add-on for Internet Explorer][6] or [ScriptX.Services][7] to deliver controlled printing on client PCs. The configuration section describes the code downloads available and optional ScriptX licensing. 
 
 The library is used by the ScriptX Helper ([MVC][1]) libraries and is also used by the [MeadCo ScriptX Samples][5] system to deliver appropriate code versions and/or javascript to user devices.
 
@@ -38,7 +38,7 @@ For the add-on, the section describes the version(s) of installer(s) available e
     <meadco>
         <scriptx>
             <printservice 
-                server="https://scriptx.print.meadroid.com" apiversion="1"
+                server="https://scriptxservices.meadroid.com" apiversion="1"
                 guid="{13598d2f-8724-467b-ae64-6e53e9e9f644}"
                 filename="~/content/sxlic.mlf" revision="10" />
         </scriptx>
